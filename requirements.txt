@@ -1,0 +1,3 @@
+dotenv
+scratchattach
+firebase_admin
