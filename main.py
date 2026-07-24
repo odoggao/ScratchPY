@@ -18,6 +18,7 @@ events = cloud.events()
 @events.event
 def on_set(event):
     if event.var == "console":
+        cloud.set_var("response",encryption.encode(" "))
         command = encryption.decode(str(event.value)).split(" ")
         print(command)
         
@@ -26,6 +27,8 @@ def on_set(event):
                 db.set_value(command[3],command[4],command[5],command[6])
             if command[1] == "get":
                 cloud.set_var("returned",encryption.encode(str(db.get_value(command[3],command[4],command[5],command[6]))))
+                cloud.set_var("response",encryption.encode(" ".join(command)))
+                
 @events.event
 def on_ready():
     print("Now listening to live Scratch cloud events...")
